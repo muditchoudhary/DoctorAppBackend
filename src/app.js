@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 
 import connectToDB from "./db/dbConfig.js";
+import { UserModel } from "./model/User.Model.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -12,11 +13,29 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+connectToDB();
+
 app.get("/", (req, res) => {
   res.send("Hello world!");
 });
 
-connectToDB();
+app.post("/user/new", async (req, res) => {
+  try {
+    const user = new UserModel({
+      fullName: req.body.fullName,
+      email: req.body.email,
+      password: req.body.password,
+    });
+    const result = await user.save();
+    return res.status(200).json({
+      result
+    })
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server started at port ${PORT}`);
