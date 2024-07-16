@@ -2,8 +2,8 @@
 
 # User
 
-- Post /auth/register - register a new user
-- Get /auth/login - check user in db and log in it
+- Post /user/register - register a new user
+- Get /user/login - check user in db and log in it
 - Post /user/appointment/new - create new appointment
 - Get /user/prescription/:prescriptionId
 

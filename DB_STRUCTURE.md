@@ -17,8 +17,8 @@ We have a single db named: DoctorApp in mongo db atlas
 2. Appointment
 
    - Id PK not null
-   - appointmentOn Date not null
-   - appointmentAt not null
+   - appointmentDate Date not null
+   - appointmentTime Time not null
    - DoctorId FK not null
    - UserId FK not null
 
