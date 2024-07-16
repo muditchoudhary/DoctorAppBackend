@@ -1,13 +1,11 @@
 import mongoose from "mongoose";
 
-import connectToDB from '../db/dbConfig.js';
-
 const { Schema } = mongoose;
 
 const UserSchema = new Schema({
   fullName: {
     type: String,
-    required: true
+    required: true,
   },
   email: {
     type: String,
@@ -19,6 +17,4 @@ const UserSchema = new Schema({
   },
 });
 
-
-
-export const UserModel =  mongoose.model("User", UserSchema);
+export const UserModel = mongoose.model("User", UserSchema);
