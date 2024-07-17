@@ -4,17 +4,12 @@ const { Schema } = mongoose;
 
 const appointmentSchema = new Schema({
   appointmentOn: {
-    type: Date,
-    default: Date.now,
+    type: String,
+    require: true,
   },
   appointmentAt: {
     type: String,
-    default: () => {
-      const now = new Date();
-      const hours = now.getHours().toString().padStart(2, "0");
-      const minutes = now.getMinutes().toString().padStart(2, "0");
-      return `${hours}:${minutes}`;
-    },
+    require: true,
   },
   doctorName: {
     type: String,
