@@ -1,4 +1,5 @@
 import { DoctorModel } from "../model/DoctorModel.js";
+import { issueJWT } from "../config/jwtUtil.js";
 
 export async function DoctorRegiter(req, res) {
   try {
@@ -9,6 +10,15 @@ export async function DoctorRegiter(req, res) {
       speciality: req.body.speciality,
     });
     const result = await doctor.save();
+    if (result) {
+      const tokenObject = issueJWT(result);
+      return res.status(200).json({
+        token: tokenObject.token,
+        expiresIn: tokenObject.expires,
+        message: "Doctor Registered Successfully",
+        result,
+      });
+    }
     return res.status(200).json({
       message: "Doctor Registered Successfully",
       result,
