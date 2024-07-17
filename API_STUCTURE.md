@@ -2,10 +2,10 @@
 
 # User
 
-- Post /user/register - register a new user
-- Get /user/login - check user in db and log in it
-- Post /user/appointment/new - create new appointment
-- Get /user/prescription/:prescriptionId
+- Post /user/register - register a new user (Done)
+- Get /user/login - check user in db and log in it (Done)
+- Post /user/appointment/new - create new appointment (Done)
+- Get /user/prescriptions - get all appointments prescriptions (Done)
 
 # Doctor
 
@@ -15,6 +15,6 @@
 
 # Admin
 
-- Post /admin/doctor/new - add new doctor
-- Del /admin/doctor/:docId - delete doctor with given id
-- Put /admin/doctor/:docId - disable or enable doctor
+- Post /admin/doctor/new - add new doctor (Done)
+- Del /admin/doctor/:docId - delete doctor with given id (Done)
+- Put /admin/doctor/:docId - disable or enable doctor (Done)
