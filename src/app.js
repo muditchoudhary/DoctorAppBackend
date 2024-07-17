@@ -23,9 +23,7 @@ app.use(passport.initialize());
 
 connectToDB();
 
-app.get("/", (req, res) => {
-  res.send("Hello world!");
-});
+app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.get(
   "/protected",
