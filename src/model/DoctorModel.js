@@ -28,6 +28,7 @@ const DoctorSchema = new Schema({
   email: {
     type: String,
     required: true,
+    unique: true,
   },
   password: {
     type: String,
@@ -40,6 +41,10 @@ const DoctorSchema = new Schema({
   disable: {
     type: Boolean,
     default: false,
+  },
+  userType: {
+    type: String,
+    default: "doctor",
   },
   appointments: {
     type: [appointmentSchema],
