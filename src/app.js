@@ -6,6 +6,7 @@ import passport from "passport";
 import connectToDB from "./db/dbConfig.js";
 import { UserModel } from "./model/User.Model.js";
 import UserRoutes from "./routes/User.routes.js";
+import AdminRoutes from "./routes/Admin.routes.js";
 import { initializePassport } from "./config/passport.js";
 
 dotenv.config();
@@ -37,6 +38,7 @@ app.get(
 );
 
 app.use("/user", UserRoutes);
+app.use("/admin", AdminRoutes);
 
 app.post("/user/new", async (req, res) => {
   try {
