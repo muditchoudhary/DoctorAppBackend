@@ -8,25 +8,24 @@ We have a single db named: DoctorApp in mongo db atlas
 
 1. User
 
-   - Id PK not null
+   - Id not null
    - FullName string not null
    - Email string not null unique
    - Password string not null
-   - userType string not null []
+   - userType string not null
    - Appointments list of appointments object
 
-2. Appointment (not a seperate collection)
+2. Appointment Schema for User Model (not a seperate collection)
 
    - Id PK not null
-   - appointmentOn Date not null
-   - appointmentAt Time not null
-   - DoctorId not null
+   - appointmentOn Sting (Date) not null
+   - appointmentAt String (Time) not null
    - doctorName not null
    - doctorSpeciality not null
 
 3. Doctor
 
-   - Id PK
+   - Id PK not null
    - FullName string not null
    - Email string not null
    - Password string not null
