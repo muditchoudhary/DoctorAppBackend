@@ -2,10 +2,10 @@
 
 # User
 
-- Post /user/register - register a new user (Done)
-- Get /user/login - check user in db and log in it (Done)
-- Post /user/appointment/new - create new appointment (Done)
-- Get /user/prescriptions - get all appointments prescriptions (Done)
+- Post /user/register - register a new user (Done) (Done Mudit)
+- Get /user/login - check user in db and log in it (Done) (Done Mudit)
+- Post /user/appointment/new - create new appointment (Done) (Done Mudit)
+- Get /user/prescriptions - get all appointments prescriptions (Done) (Done Mudit)
 
 # Doctor
 
@@ -15,6 +15,6 @@
 
 # Admin
 
-- Post /admin/doctor/new - add new doctor (Done)
-- Del /admin/doctor/:docId - delete doctor with given id (Done)
-- Put /admin/doctor/:docId - disable or enable doctor (Done)
+- Post /admin/doctor/register - add new doctor (Done) (Done Mudit)
+- Del /admin/doctor/:docId - delete doctor with given id (Done) (Done Mudit)
+- Put /admin/doctor/:docId - disable or enable doctor (Done) (Done Mudit)
