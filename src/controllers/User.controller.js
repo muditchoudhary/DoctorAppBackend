@@ -2,8 +2,8 @@ import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
 
 import { UserModel } from "../model/User.Model.js";
-import { AppointmentModel } from "../model/Appointment.model.js";
 import { issueJWT } from "../config/jwtUtil.js";
+import { DoctorModel } from "../model/DoctorModel.js";
 
 dotenv.config();
 
@@ -109,18 +109,40 @@ export async function login(req, res) {
 export async function createNewAppointment(req, res) {
   try {
     const user = req.user;
+    const doctor = await DoctorModel.findOne({
+      _id: req.body.doctorId,
+    });
+    if (!doctor)
+      return res
+        .status(404)
+        .json({ message: "Doctor not found with the given id" });
     const result = await UserModel.updateOne(
       { _id: user._id },
       {
         $push: {
           appointments: {
-            doctorName: req.body.doctorName,
-            doctorSpeciality: req.body.doctorSpeciality,
+            appointmentOn: req.body.appointmentOn,
+            appointmentAt: req.body.appointmentAt,
+            doctorName: doctor.fullName,
+            doctorSpeciality: doctor.speciality,
           },
         },
       }
     );
-    console.log("result: ", result);
+    const doctorModelResult = await DoctorModel.updateOne(
+      { _id: doctor._id },
+      {
+        $push: {
+          appointments: {
+            appointmentOn: req.body.appointmentOn,
+            appointmentAt: req.body.appointmentAt,
+            userId: user._id,
+            userName: user.fullName,
+          },
+        },
+      }
+    );
+    // console.log("result: ", result);
     return res.status(200).json({
       message: "Appointment created",
       result: result,
