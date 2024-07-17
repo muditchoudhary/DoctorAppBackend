@@ -3,6 +3,7 @@ import { ExtractJwt } from "passport-jwt";
 import dotenv from "dotenv";
 
 import { UserModel } from "../model/User.Model.js";
+import { DoctorModel } from "../model/DoctorModel.js";
 
 dotenv.config();
 
@@ -15,10 +16,18 @@ export const initializePassport = (passport) => {
   passport.use(
     new JwtStrategy(jwtOptions, async function (jwt_payload, done) {
       try {
-        const user = await UserModel.findOne({
-          _id: jwt_payload.sub,
-        });
-        console.log("User in password: ", user);
+        // console.log("userType in password config: ", jwt_payload.userType);
+        let user;
+        if (jwt_payload.userType === "user") {
+          user = await UserModel.findOne({
+            _id: jwt_payload.sub,
+          });
+        } else if (jwt_payload.userType === "doctor") {
+          user = await DoctorModel.findOne({
+            _id: jwt_payload.sub,
+          });
+        }
+        // console.log("User in password config: ", user);
         if (!user) {
           return done(null, false);
         }

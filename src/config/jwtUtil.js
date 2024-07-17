@@ -10,6 +10,7 @@ export const issueJWT = (user) => {
   const payload = {
     sub: id,
     iat: Math.floor(Date.now() / 1000),
+    userType: user.userType,
   };
 
   const signedToken = jwt.sign(payload, process.env.JWT_SECRET, {
