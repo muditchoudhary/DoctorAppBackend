@@ -36,6 +36,12 @@ export async function login(req, res) {
       message: "Log in successfull",
       token: tokenObject.token,
       expiresIn: tokenObject.expires,
+      doctor: {
+        id: doctor._id,
+        fullName: doctor.fullName,
+        email: doctor.email,
+        speciality: doctor.speciality,
+      },
     });
   } catch (error) {
     console.error(error);

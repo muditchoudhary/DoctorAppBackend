@@ -97,6 +97,11 @@ export async function login(req, res) {
       message: "Log in successfull",
       token: tokenObject.token,
       expiresIn: tokenObject.expires,
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+      },
     });
   } catch (error) {
     console.error(error);
@@ -109,6 +114,11 @@ export async function login(req, res) {
 export async function createNewAppointment(req, res) {
   try {
     const user = req.user;
+    if (!req.body.doctorId) {
+      return res.status(400).json({
+        message: "Doctor id is missing",
+      });
+    }
     const doctor = await DoctorModel.findOne({
       _id: req.body.doctorId,
     });
@@ -116,7 +126,7 @@ export async function createNewAppointment(req, res) {
       return res
         .status(404)
         .json({ message: "Doctor not found with the given id" });
-    const result = await UserModel.updateOne(
+    const userModelresult = await UserModel.updateOne(
       { _id: user._id },
       {
         $push: {
@@ -142,11 +152,11 @@ export async function createNewAppointment(req, res) {
         },
       }
     );
-    // console.log("result: ", result);
-    return res.status(200).json({
-      message: "Appointment created",
-      result: result,
-    });
+    if (userModelresult.acknowledged && doctorModelResult.acknowledged) {
+      return res.status(200).json({
+        message: "Appointment created",
+      });
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).json({
@@ -158,12 +168,36 @@ export async function createNewAppointment(req, res) {
 export async function viewPrescription(req, res) {
   try {
     const user = req.user;
-    const fetchedUser = await UserModel.findOne({ _id: user._id });
-    if (!fetchedUser)
-      return res.status(404).json({ message: "User not found" });
+    const result = await UserModel.findOne({ _id: user._id }).select({
+      "appointments.doctorName": 1,
+      "appointments.doctorSpeciality": 1,
+      "appointments.prescription": 1,
+      "appointments.appointmentOn": 1,
+      "appointments.appointmentAt": 1,
+    });
     return res.status(200).json({
       message: "Prescriptions fetched",
-      appointments: fetchedUser,
+      appointments: result.appointments,
+    });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({
+      message: "Internal Server Error",
+    });
+  }
+}
+
+export async function getAllDoctor(req, res) {
+  try {
+    const doctors = await DoctorModel.find({ disable: false })
+      .select({ _id: 1, fullName: 1, email: 1, speciality: 1 })
+      .exec();
+
+    if (!doctors)
+      return res.status(404).json({ message: "No doctor are present" });
+    return res.status(200).json({
+      message: "Doctors fetched",
+      doctors,
     });
   } catch (error) {
     console.error(error);

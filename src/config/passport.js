@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 
 import { UserModel } from "../model/User.Model.js";
 import { DoctorModel } from "../model/DoctorModel.js";
+import { AdminModel } from "../model/Admin.Model.js";
 
 dotenv.config();
 
@@ -24,6 +25,10 @@ export const initializePassport = (passport) => {
           });
         } else if (jwt_payload.userType === "doctor") {
           user = await DoctorModel.findOne({
+            _id: jwt_payload.sub,
+          });
+        } else if (jwt_payload.userType === "admin") {
+          user = await AdminModel.findOne({
             _id: jwt_payload.sub,
           });
         }

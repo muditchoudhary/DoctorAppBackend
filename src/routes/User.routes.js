@@ -6,6 +6,7 @@ import {
   login,
   createNewAppointment,
   viewPrescription,
+  getAllDoctor,
 } from "../controllers/User.controller.js";
 
 const router = express.Router();
@@ -21,6 +22,11 @@ router.get(
   "/prescriptions",
   passport.authenticate("jwt", { session: false }),
   viewPrescription
+);
+router.get(
+  "/doctor/all",
+  passport.authenticate("jwt", { session: false }),
+  getAllDoctor
 );
 
 export default router;
