@@ -25,6 +25,8 @@ connectToDB();
 
 app.get("/", (req, res) => res.send("Express on Vercel"));
 
+app.get("/mudit", (req, res) => res.send("Hi Mudit what's up bro"));
+
 app.get(
   "/protected",
   passport.authenticate("jwt", { session: false }),
