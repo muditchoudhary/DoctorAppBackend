@@ -19,6 +19,18 @@ const appointmentSchema = new Schema({
     type: String,
     required: true,
   },
+  commonId: {
+    type: String,
+    required: true,
+  },
+  prescription: {
+    type: String,
+    default: null,
+  },
+  complete: {
+    type: Boolean,
+    default: false,
+  },
 });
 const DoctorSchema = new Schema({
   fullName: {

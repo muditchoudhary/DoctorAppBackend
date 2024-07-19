@@ -23,6 +23,14 @@ const appointmentSchema = new Schema({
     type: String,
     default: null,
   },
+  commonId: {
+    type: String,
+    require: true,
+  },
+  complete: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const UserSchema = new Schema({
