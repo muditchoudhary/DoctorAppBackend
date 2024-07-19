@@ -10,17 +10,16 @@
 
 # Doctor
 
-- Put /doctor/login - check the doctor and login in it
-- Put /doctor/appointment/edit/:appId - change appt. time or edit or add prescription
-- Get /doctor/appointments/:appId - return a appt. with given id
-- Get /doctor/appointment/:doctorId - return all appt. by given doctor id
-- Delete /doctor/appointment/:appId - delete the given appt.
-- Delete /doctor/appointment?:appId - delete the appointment
+- Put /doctor/login - check the doctor and login in it (Done Mudit)
+- Put /doctor/appointment/edit - change appt. time OR date (Done Mudit)
+- Get /doctor/appointments/ - return all appointments of a doctor (Done Mudit)
+- Delete /doctor/appointment/ - delete/cancel the given appt. (Done Mudit)
+- Put /doctor/appointment/prescription - add/update prescription for the appointment (Done Mudit)
 
 # Admin
 
 - Post /admin/doctor/register - add new doctor (Done) (Done Mudit)
-- Post /admin/register - register a new admin not available in frontend (Done) (Done Mudit)
-- Post /admin/login - login a new admin is available in frontend (Done) (Done Mudit)
+- Post /admin/register - register a new admin. Route not available in frontend (Done) (Done Mudit)
+- Post /admin/login - login a new admin. Route is available in frontend (Done) (Done Mudit)
 - Del /admin/doctor/:docId - delete doctor with given id (Done) (Done Mudit)
 - Put /admin/doctor/:docId - disable or enable doctor (Done) (Done Mudit)
