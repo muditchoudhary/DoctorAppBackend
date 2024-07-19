@@ -177,7 +177,9 @@ export async function toggleDisableDoctor(req, res) {
       }
     );
     res.status(200).json({
-      message: "Doctor Disable Successfully",
+      message: `Doctor ${
+        req.body.disable === true ? "disable" : "enable"
+      } Successfully`,
     });
   } catch (error) {
     console.error(error);
