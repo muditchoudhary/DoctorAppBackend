@@ -1,22 +1,38 @@
 import express from "express";
 import passport from "passport";
 
-import { login } from "../controllers/Doctor.controller.js";
+import {
+  login,
+  getAppointments,
+  deleteAppointment,
+  updateAppointment,
+  updatePrescription,
+} from "../controllers/Doctor.controller.js";
 
 const router = express.Router();
 
 router.post("/login", login);
 
 router.get(
-  "/appointments/:docId",
+  "/appointments/",
   passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    console.log("my logic working");
-  }
+  getAppointments
 );
-// router.get("/appointment/:apptId", getAppointment);
 
-// router.delete("/appointment/:apptId", deleteAppointment);
-// router.put("/appointment/edit/:apptId", updateAppointment);
+router.delete(
+  "/appointment",
+  passport.authenticate("jwt", { session: false }),
+  deleteAppointment
+);
+router.put(
+  "/appointment/edit",
+  passport.authenticate("jwt", { session: false }),
+  updateAppointment
+);
+router.put(
+  "/appointment/prescription",
+  passport.authenticate("jwt", { session: false }),
+  updatePrescription
+);
 
 export default router;

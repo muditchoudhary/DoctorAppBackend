@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
 import dotenv from "dotenv";
+import { v4 as uuidv4 } from "uuid";
 
 import { UserModel } from "../model/User.Model.js";
 import { issueJWT } from "../config/jwtUtil.js";
@@ -119,6 +120,7 @@ export async function createNewAppointment(req, res) {
         message: "Doctor id is missing",
       });
     }
+
     const doctor = await DoctorModel.findOne({
       _id: req.body.doctorId,
     });
@@ -126,6 +128,8 @@ export async function createNewAppointment(req, res) {
       return res
         .status(404)
         .json({ message: "Doctor not found with the given id" });
+
+    const commonId = uuidv4();
     const userModelresult = await UserModel.updateOne(
       { _id: user._id },
       {
@@ -135,6 +139,7 @@ export async function createNewAppointment(req, res) {
             appointmentAt: req.body.appointmentAt,
             doctorName: doctor.fullName,
             doctorSpeciality: doctor.speciality,
+            commonId,
           },
         },
       }
@@ -148,6 +153,7 @@ export async function createNewAppointment(req, res) {
             appointmentAt: req.body.appointmentAt,
             userId: user._id,
             userName: user.fullName,
+            commonId,
           },
         },
       }
@@ -155,6 +161,8 @@ export async function createNewAppointment(req, res) {
     if (userModelresult.acknowledged && doctorModelResult.acknowledged) {
       return res.status(200).json({
         message: "Appointment created",
+        userModelresult,
+        doctorModelResult,
       });
     }
   } catch (error) {
