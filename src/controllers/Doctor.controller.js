@@ -188,7 +188,7 @@ export async function getAppointments(req, res) {
         message: "Doctor not found",
       });
     }
-    console.log("doctor in getApp: ", doctor);
+    // console.log("doctor in getApp: ", doctor);
 
     const result = await DoctorModel.findOne({ _id: doctor._id })
       .select({

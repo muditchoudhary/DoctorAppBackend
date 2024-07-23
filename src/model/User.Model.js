@@ -11,6 +11,10 @@ const appointmentSchema = new Schema({
     type: String,
     require: true,
   },
+  doctorId: {
+    type: String,
+    require: true,
+  },
   doctorName: {
     type: String,
     required: true,
@@ -22,6 +26,10 @@ const appointmentSchema = new Schema({
   prescription: {
     type: String,
     default: null,
+  },
+  disease: {
+    type: String,
+    require: true,
   },
   commonId: {
     type: String,

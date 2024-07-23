@@ -129,6 +129,34 @@ export async function createNewAppointment(req, res) {
         .status(404)
         .json({ message: "Doctor not found with the given id" });
 
+    // REDUNDANT_LOGIC
+    // const doctor = await DoctorModel.findOne({
+    //   _id: req.body.doctorId,
+    // });
+    // if (!doctor)
+    //   return res
+    //     .status(404)
+    //     .json({ message: "Doctor not found with the given id" });
+
+    // CHECKING EXITSING APPOINTMENT EXITS
+    const existingAppointment = await UserModel.findOne({
+      _id: user._id,
+      appointments: {
+        $elemMatch: {
+          doctorId: doctor._id,
+          appointmentOn: req.body.appointmentOn,
+          appointmentAt: req.body.appointmentAt,
+          complete: false,
+        },
+      },
+    });
+
+    if (existingAppointment) {
+      return res
+        .status(400)
+        .json({ message: "Appointment with the same details already exists." });
+    }
+
     const commonId = uuidv4();
     const userModelresult = await UserModel.updateOne(
       { _id: user._id },
@@ -137,6 +165,8 @@ export async function createNewAppointment(req, res) {
           appointments: {
             appointmentOn: req.body.appointmentOn,
             appointmentAt: req.body.appointmentAt,
+            disease: req.body.disease,
+            doctorId: doctor._id,
             doctorName: doctor.fullName,
             doctorSpeciality: doctor.speciality,
             commonId,
@@ -151,6 +181,7 @@ export async function createNewAppointment(req, res) {
           appointments: {
             appointmentOn: req.body.appointmentOn,
             appointmentAt: req.body.appointmentAt,
+            disease: req.body.disease,
             userId: user._id,
             userName: user.fullName,
             commonId,

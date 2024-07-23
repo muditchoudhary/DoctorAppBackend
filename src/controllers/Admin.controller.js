@@ -124,16 +124,18 @@ export async function DoctorRegiter(req, res) {
     });
     const result = await doctor.save();
     if (result) {
-      const tokenObject = issueJWT(result);
+      // const tokenObject = issueJWT(result);
       return res.status(200).json({
-        token: tokenObject.token,
-        expiresIn: tokenObject.expires,
+        // token: tokenObject.token,
+        // expiresIn: tokenObject.expires,
         message: "Doctor Registered Successfully",
         doctor: {
           id: result._id,
           fullName: result.fullName,
           email: result.email,
           speciality: result.speciality,
+          disable: result.disable,
+          userType: result.userType,
         },
       });
     }

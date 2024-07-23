@@ -27,6 +27,10 @@ const appointmentSchema = new Schema({
     type: String,
     default: null,
   },
+  disease: {
+    type: String,
+    require: true,
+  },
   complete: {
     type: Boolean,
     default: false,
